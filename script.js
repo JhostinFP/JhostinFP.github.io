@@ -12,13 +12,14 @@ function updateTimes() {
 
   let previousEndTime = null;
 
-  tasks.forEach((task) => {
+  tasks.forEach((task, index) => {
     const startInput = task.querySelector(".time-start");
     const endInput = task.querySelector(".time-end");
     const diffSpan = task.querySelector(".time-diff");
 
     // Evitar cálculos si el usuario está editando un campo
     if (startInput === document.activeElement || endInput === document.activeElement) {
+      previousEndTime = parseTime(endInput.value); // Guardar el fin actual para la siguiente tarea
       return;
     }
 
@@ -27,7 +28,7 @@ function updateTimes() {
     const endTime = parseTime(endInput.value);
 
     // Validar que las horas sean válidas
-    if (isNaN(startTime) || isNaN(endTime)) {
+    if (isNaN(startTime) || isNaN(endTime) || endTime <= startTime) {
       diffSpan.textContent = "N/A"; // Mostrar "N/A" si los tiempos no son válidos
       return;
     }
@@ -35,24 +36,17 @@ function updateTimes() {
     // Calcular la diferencia en minutos
     const diffMinutes = endTime - startTime;
 
-    // Mostrar la diferencia en minutos en el campo correspondiente
+    // Mostrar la diferencia en minutos
     diffSpan.textContent = `${diffMinutes} min`;
 
-    // Si hay un tiempo de fin previo, ajustamos los tiempos actuales
+    // Ajustar la tarea actual si hay un tiempo final previo
     if (previousEndTime !== null) {
-      const newStartTime = previousEndTime;
-      const newEndTime = previousEndTime + diffMinutes;
-
-      // Actualizar los campos con los nuevos valores
-      startInput.value = formatTime(newStartTime);
-      endInput.value = formatTime(newEndTime);
-
-      // Actualizamos el tiempo final de esta tarea
-      previousEndTime = newEndTime;
-    } else {
-      // Si no hay tiempo previo, guardar el tiempo final actual
-      previousEndTime = endTime;
+      startInput.value = formatTime(previousEndTime); // Actualizar inicio
+      endInput.value = formatTime(previousEndTime + diffMinutes); // Actualizar fin
     }
+
+    // Guardar el tiempo final de la tarea actual para la siguiente
+    previousEndTime = parseTime(endInput.value);
   });
 }
 
@@ -73,20 +67,23 @@ function formatTime(minutes) {
 document.getElementById("add-task").addEventListener("click", () => {
   const taskList = document.querySelector(".task-list");
 
-  // Crear una nueva tarea (similar a las existentes)
+  // Crear una nueva tarea
   const newTask = document.createElement("div");
   newTask.classList.add("task");
   newTask.innerHTML = `
     <div class="task-box" contenteditable="true">Nueva tarea</div>
-    <input type="time" class="time-start" value="11:10">
-    <input type="time" class="time-end" value="11:30">
-    <span class="time-diff">20 min</span> <!-- Diferencia en minutos -->
+    <input type="time" class="time-start" value="00:00">
+    <input type="time" class="time-end" value="00:30">
+    <span class="time-diff">30 min</span>
   `;
 
-  // Añadir la nueva tarea a la lista, justo después de la última tarea
+  // Añadir la nueva tarea a la lista antes del botón de agregar
   taskList.insertBefore(newTask, taskList.querySelector("#add-task"));
 
-  // Volver a asignar el evento 'input' a la nueva entrada de tiempo
+  // Asignar eventos de cambio de hora a la nueva tarea
   newTask.querySelector(".time-start").addEventListener("input", updateTimes);
   newTask.querySelector(".time-end").addEventListener("input", updateTimes);
+
+  // Actualizar todas las tareas para que los tiempos sean consistentes
+  updateTimes();
 });
