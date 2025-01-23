@@ -17,6 +17,11 @@ function updateTimes() {
     const endInput = task.querySelector(".time-end");
     const diffSpan = task.querySelector(".time-diff");
 
+    // Verificar si el usuario está escribiendo en los campos de hora
+    if (startInput === document.activeElement || endInput === document.activeElement) {
+      return; // Si el campo de hora está siendo editado, no actualizamos
+    }
+
     // Convertimos los tiempos de inicio y fin a minutos
     const startTime = parseTime(startInput.value);
     const endTime = parseTime(endInput.value);
@@ -30,9 +35,7 @@ function updateTimes() {
     // Si ya se ha actualizado una tarea anterior, actualizamos la tarea actual
     if (previousEndTime !== null) {
       // La hora de inicio de la tarea actual debe ser igual a la hora de fin de la tarea anterior
-      if (startInput.value === formatTime(previousEndTime)) {
-        startInput.value = formatTime(previousEndTime);
-      }
+      startInput.value = formatTime(previousEndTime);
 
       // La hora de fin de la tarea actual se ajusta según la duración
       endInput.value = formatTime(previousEndTime + diffMinutes);
