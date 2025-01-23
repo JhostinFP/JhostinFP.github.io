@@ -10,39 +10,31 @@ document.querySelectorAll(".time-end").forEach((input) => {
 function updateTimes() {
   const tasks = document.querySelectorAll(".task");
 
-  let previousEndTime = null;
+  let previousEndTime = null; // Para rastrear el fin de la tarea anterior
 
   tasks.forEach((task, index) => {
     const startInput = task.querySelector(".time-start");
     const endInput = task.querySelector(".time-end");
     const diffSpan = task.querySelector(".time-diff");
 
-    // Evitar cálculos si el usuario está editando un campo
-    if (startInput === document.activeElement || endInput === document.activeElement) {
-      previousEndTime = parseTime(endInput.value); // Guardar el fin actual para la siguiente tarea
-      return;
-    }
-
     // Convertir los tiempos a minutos
     const startTime = parseTime(startInput.value);
     const endTime = parseTime(endInput.value);
 
-    // Validar que las horas sean válidas
+    // Si las horas son inválidas o fin es menor que inicio, evitar cálculos
     if (isNaN(startTime) || isNaN(endTime) || endTime <= startTime) {
-      diffSpan.textContent = "N/A"; // Mostrar "N/A" si los tiempos no son válidos
+      diffSpan.textContent = "N/A"; // Mostrar "N/A" si los tiempos son inválidos
       return;
     }
 
     // Calcular la diferencia en minutos
     const diffMinutes = endTime - startTime;
-
-    // Mostrar la diferencia en minutos
     diffSpan.textContent = `${diffMinutes} min`;
 
-    // Ajustar la tarea actual si hay un tiempo final previo
+    // Si hay una tarea anterior, ajustar los tiempos automáticamente
     if (previousEndTime !== null) {
-      startInput.value = formatTime(previousEndTime); // Actualizar inicio
-      endInput.value = formatTime(previousEndTime + diffMinutes); // Actualizar fin
+      startInput.value = formatTime(previousEndTime); // Ajustar inicio
+      endInput.value = formatTime(previousEndTime + diffMinutes); // Ajustar fin
     }
 
     // Guardar el tiempo final de la tarea actual para la siguiente
@@ -71,19 +63,19 @@ document.getElementById("add-task").addEventListener("click", () => {
   const newTask = document.createElement("div");
   newTask.classList.add("task");
   newTask.innerHTML = `
-    <div class="task-box" contenteditable="true">Nueva tarea</div>
+    <div class="task-box" contenteditable="true">Nueva Tarea</div>
     <input type="time" class="time-start" value="00:00">
     <input type="time" class="time-end" value="00:30">
     <span class="time-diff">30 min</span>
   `;
 
-  // Añadir la nueva tarea a la lista antes del botón de agregar
+  // Insertar la nueva tarea antes del botón de agregar
   taskList.insertBefore(newTask, taskList.querySelector("#add-task"));
 
-  // Asignar eventos de cambio de hora a la nueva tarea
+  // Asignar eventos de cambio a los nuevos campos
   newTask.querySelector(".time-start").addEventListener("input", updateTimes);
   newTask.querySelector(".time-end").addEventListener("input", updateTimes);
 
-  // Actualizar todas las tareas para que los tiempos sean consistentes
+  // Ejecutar actualización para sincronizar horarios
   updateTimes();
 });
