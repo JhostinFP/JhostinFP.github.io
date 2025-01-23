@@ -1,10 +1,12 @@
 // Asignar eventos de cambio de hora a las tareas iniciales
-document.querySelectorAll(".time-start").forEach((input) => {
-  input.addEventListener("input", updateTimes);
-});
-document.querySelectorAll(".time-end").forEach((input) => {
-  input.addEventListener("input", updateTimes);
-});
+function assignEventListeners() {
+  document.querySelectorAll(".time-start").forEach((input) => {
+    input.addEventListener("input", updateTimes);
+  });
+  document.querySelectorAll(".time-end").forEach((input) => {
+    input.addEventListener("input", updateTimes);
+  });
+}
 
 // Función para actualizar las horas y las diferencias en tiempo real
 function updateTimes() {
@@ -73,9 +75,12 @@ document.getElementById("add-task").addEventListener("click", () => {
   taskList.insertBefore(newTask, taskList.querySelector("#add-task"));
 
   // Asignar eventos de cambio a los nuevos campos
-  newTask.querySelector(".time-start").addEventListener("input", updateTimes);
-  newTask.querySelector(".time-end").addEventListener("input", updateTimes);
+  assignEventListeners();
 
   // Ejecutar actualización para sincronizar horarios
   updateTimes();
 });
+
+// Inicializar los eventos al cargar la página
+assignEventListeners();
+updateTimes();
