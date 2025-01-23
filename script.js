@@ -12,7 +12,7 @@ function updateTimes() {
 
   let previousEndTime = null; // Para rastrear el fin de la tarea anterior
 
-  tasks.forEach((task, index) => {
+  tasks.forEach((task) => {
     const startInput = task.querySelector(".time-start");
     const endInput = task.querySelector(".time-end");
     const diffSpan = task.querySelector(".time-diff");
