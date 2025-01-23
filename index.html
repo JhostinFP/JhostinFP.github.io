@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Horas</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Gestión de Horas</h1>
+    <div class="task-list">
+      <div class="task">
+        <div class="task-box" contenteditable="true">Ejercicio</div>
+        <input type="time" class="time-start" value="10:30">
+        <input type="time" class="time-end" value="10:50">
+        <span class="time-diff">20 min</span> <!-- Diferencia en minutos -->
+      </div>
+      <div class="task">
+        <div class="task-box" contenteditable="true">Tarea</div>
+        <input type="time" class="time-start" value="10:50">
+        <input type="time" class="time-end" value="11:10">
+        <span class="time-diff">20 min</span> <!-- Diferencia en minutos -->
+      </div>
+      <button id="add-task">Agregar Tarea</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>

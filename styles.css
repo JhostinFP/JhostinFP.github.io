@@ -1,0 +1,167 @@
+/* styles.css */
+*,
+*::before,
+*::after {
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan en el tamaño total de los elementos */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('https://hdqwalls.com/wallpapers/mountains-clouds-lake-reflection-sun-sky-6o.jpg'); /* Cambia esta URL por la imagen que prefieras */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    overflow-x: hidden; /* Evita el desplazamiento horizontal */
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Sombra oscura */
+    z-index: -1;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    max-width: 100%; /* Hace que el contenedor sea flexible */
+    box-sizing: border-box;
+    overflow: hidden; /* Evita que los elementos sobresalgan */
+}
+
+h1 {
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: 20px;
+    font-size: 28px; /* Título ajustado */
+    word-wrap: break-word; /* Asegura que el texto largo se ajuste */
+}
+
+/* Flexbox para que las tareas se ajusten a una columna */
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-direction: row; /* Mantiene las tareas en una fila en pantallas grandes */
+    width: 100%; /* Asegura que la tarea ocupe todo el espacio disponible */
+}
+
+.task-box {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #f9f9f9;
+    cursor: text;
+    min-width: 150px; /* Evita que los cuadros de texto se encojan demasiado */
+}
+
+.time-start,
+.time-end {
+    width: 80px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.time-diff {
+    font-size: 14px;
+    padding: 5px;
+    width: 50px;
+    text-align: center;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+}
+
+/* Botón de agregar tarea */
+#add-task {
+    padding: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#add-task:hover {
+    background-color: #0056b3;
+}
+
+/* Media query para pantallas más pequeñas (móviles) */
+@media (max-width: 768px) {
+    .container {
+        width: 90%; /* El contenedor ocupa el 90% del ancho de la pantalla */
+        padding: 10px; /* Menos espacio interior */
+    }
+
+    h1 {
+        font-size: 24px; /* Ajusta el tamaño del título */
+        margin-top: 0;
+    }
+
+    .task-list {
+        gap: 8px; /* Reduce el espacio entre tareas */
+    }
+
+    .task {
+        flex-direction: column; /* Cambia a columna para apilar los elementos */
+        align-items: flex-start; /* Alinea los elementos a la izquierda */
+    }
+
+    .task-box {
+        width: 100%; /* Hace que el cuadro de tarea ocupe todo el ancho */
+    }
+
+    .time-start,
+    .time-end {
+        width: 70%; /* Hace que los campos de tiempo sean más grandes */
+        margin-bottom: 5px; /* Espacio entre los campos de tiempo */
+    }
+
+    .time-diff {
+        width: 100%; /* Hace que la diferencia de tiempo ocupe todo el ancho */
+        text-align: left; /* Alinea la diferencia de tiempo a la izquierda */
+    }
+
+    #add-task {
+        width: 100%; /* El botón de agregar tarea ocupa todo el ancho */
+    }
+}
+
+/* Media query para pantallas muy pequeñas (por ejemplo, teléfonos en modo retrato) */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 20px; /* Ajusta el tamaño del título para pantallas muy pequeñas */
+    }
+
+    .time-start,
+    .time-end {
+        width: 60%; /* Los campos de tiempo se hacen más pequeños */
+    }
+
+    .task {
+        gap: 5px; /* Reduce el espacio entre los elementos */
+    }
+}
