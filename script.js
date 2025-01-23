@@ -1,4 +1,4 @@
-// Asignamos el evento de cambio de hora a las tareas iniciales
+// Asignar eventos de cambio de hora a las tareas iniciales
 document.querySelectorAll(".time-start").forEach((input) => {
   input.addEventListener("input", updateTimes);
 });
@@ -17,14 +17,20 @@ function updateTimes() {
     const endInput = task.querySelector(".time-end");
     const diffSpan = task.querySelector(".time-diff");
 
-    // Verificar si el usuario está escribiendo en los campos de hora
+    // Evitar cálculos si el usuario está editando un campo
     if (startInput === document.activeElement || endInput === document.activeElement) {
-      return; // Si el campo de hora está siendo editado, no actualizamos
+      return;
     }
 
-    // Convertimos los tiempos de inicio y fin a minutos
+    // Convertir los tiempos a minutos
     const startTime = parseTime(startInput.value);
     const endTime = parseTime(endInput.value);
+
+    // Validar que las horas sean válidas
+    if (isNaN(startTime) || isNaN(endTime)) {
+      diffSpan.textContent = "N/A"; // Mostrar "N/A" si los tiempos no son válidos
+      return;
+    }
 
     // Calcular la diferencia en minutos
     const diffMinutes = endTime - startTime;
@@ -32,17 +38,21 @@ function updateTimes() {
     // Mostrar la diferencia en minutos en el campo correspondiente
     diffSpan.textContent = `${diffMinutes} min`;
 
-    // Si ya se ha actualizado una tarea anterior, actualizamos la tarea actual
+    // Si hay un tiempo de fin previo, ajustamos los tiempos actuales
     if (previousEndTime !== null) {
-      // La hora de inicio de la tarea actual debe ser igual a la hora de fin de la tarea anterior
-      startInput.value = formatTime(previousEndTime);
+      const newStartTime = previousEndTime;
+      const newEndTime = previousEndTime + diffMinutes;
 
-      // La hora de fin de la tarea actual se ajusta según la duración
-      endInput.value = formatTime(previousEndTime + diffMinutes);
+      // Actualizar los campos con los nuevos valores
+      startInput.value = formatTime(newStartTime);
+      endInput.value = formatTime(newEndTime);
+
+      // Actualizamos el tiempo final de esta tarea
+      previousEndTime = newEndTime;
+    } else {
+      // Si no hay tiempo previo, guardar el tiempo final actual
+      previousEndTime = endTime;
     }
-
-    // Guardamos el tiempo final de la tarea actual para usarlo en la siguiente iteración
-    previousEndTime = parseTime(endInput.value);
   });
 }
 
