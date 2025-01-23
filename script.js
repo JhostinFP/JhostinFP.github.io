@@ -6,6 +6,9 @@ function assignEventListeners() {
   document.querySelectorAll(".time-end").forEach((input) => {
     input.addEventListener("input", updateTimes);
   });
+  document.querySelectorAll(".time-diff").forEach((span) => {
+    span.addEventListener("input", updateEndTimeFromDiff); // Nuevo evento para editar la diferencia
+  });
 }
 
 // Función para actualizar las horas y las diferencias en tiempo real
@@ -44,6 +47,27 @@ function updateTimes() {
   });
 }
 
+// Función para actualizar la hora de fin desde la diferencia de minutos editada
+function updateEndTimeFromDiff(event) {
+  const task = event.target.closest(".task");
+  const startInput = task.querySelector(".time-start");
+  const endInput = task.querySelector(".time-end");
+  const diffSpan = task.querySelector(".time-diff");
+
+  // Obtener el tiempo de inicio y la diferencia editada
+  const startTime = parseTime(startInput.value);
+  const diffMinutes = parseInt(event.target.textContent);
+
+  if (isNaN(diffMinutes) || isNaN(startTime)) {
+    return;
+  }
+
+  // Calcular y actualizar la hora de fin
+  const newEndTime = startTime + diffMinutes;
+  endInput.value = formatTime(newEndTime);
+  updateTimes(); // Llamar a updateTimes para recalcular la diferencia y sincronizar todo
+}
+
 // Convierte una hora (HH:mm) en minutos totales
 function parseTime(time) {
   const [hours, minutes] = time.split(":").map(Number);
@@ -68,7 +92,7 @@ document.getElementById("add-task").addEventListener("click", () => {
     <div class="task-box" contenteditable="true">Nueva Tarea</div>
     <input type="time" class="time-start" value="00:00">
     <input type="time" class="time-end" value="00:30">
-    <span class="time-diff">30 min</span>
+    <span class="time-diff" contenteditable="true">30 min</span> <!-- Campo editable para la diferencia -->
   `;
 
   // Insertar la nueva tarea antes del botón de agregar
