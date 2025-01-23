@@ -33,6 +33,7 @@ body::before {
     width: 500px;
     max-width: 100%; /* Hace que el contenedor sea flexible */
     box-sizing: border-box; /* Asegura que el padding se incluya en el tamaño */
+    overflow: hidden; /* Evita que se desborden los elementos */
 }
 
 h1 {
