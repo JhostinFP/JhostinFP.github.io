@@ -123,16 +123,16 @@ h1 {
     }
 
     .task-box {
-        width: 50%; /* Hacer el cuadro de texto más estrecho en pantallas pequeñas */
+        width: 70%; /* Hacer el cuadro de texto más estrecho en pantallas pequeñas */
     }
 
     .time-start,
     .time-end {
-        width: 25%; /* Reduce el tamaño de las horas para dejar espacio */
+        width: 80px; /* Mantener el tamaño original de las horas */
     }
 
     .time-diff {
-        width: 20%; /* Hace que la diferencia de tiempo ocupe menos espacio */
+        width: 50px; /* Mantener el tamaño original de la diferencia de tiempo */
     }
 
     #add-task {
@@ -146,20 +146,20 @@ h1 {
         font-size: 20px; /* Ajusta el tamaño del título para pantallas muy pequeñas */
     }
 
-    .time-start,
-    .time-end {
-        width: 40%; /* Hace que los campos de tiempo sean más grandes en pantallas muy pequeñas */
+    .task-box {
+        width: 60%; /* Hacer el cuadro de texto aún más pequeño en pantallas muy pequeñas */
     }
 
-    .task {
-        gap: 10px; /* Mantiene el espacio entre elementos */
+    .time-start,
+    .time-end {
+        width: 70%; /* Hacer los campos de tiempo más pequeños */
     }
 
     .time-diff {
-        width: 30%; /* Deja un poco más de espacio a la diferencia de tiempo */
+        width: 40%; /* Deja un poco más de espacio a la diferencia de tiempo */
     }
 
-    .task-box {
-        width: 60%; /* Hacer el cuadro de texto aún más pequeño en pantallas muy pequeñas */
+    .task {
+        gap: 5px; /* Reduce el espacio entre los elementos */
     }
 }
