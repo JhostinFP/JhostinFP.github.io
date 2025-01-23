@@ -6,7 +6,7 @@ document.querySelectorAll(".time-end").forEach((input) => {
   input.addEventListener("input", updateTimes);
 });
 
-// Función para actualizar las horas de inicio y fin de las tareas
+// Función para actualizar las horas y las diferencias en tiempo real
 function updateTimes() {
   const tasks = document.querySelectorAll(".task");
 
@@ -21,17 +21,17 @@ function updateTimes() {
     const startTime = parseTime(startInput.value);
     const endTime = parseTime(endInput.value);
 
-    // Si las horas son inválidas o fin es menor que inicio, evitar cálculos
+    // Validar los tiempos
     if (isNaN(startTime) || isNaN(endTime) || endTime <= startTime) {
       diffSpan.textContent = "N/A"; // Mostrar "N/A" si los tiempos son inválidos
       return;
     }
 
-    // Calcular la diferencia en minutos
+    // Calcular y mostrar la diferencia en minutos
     const diffMinutes = endTime - startTime;
     diffSpan.textContent = `${diffMinutes} min`;
 
-    // Si hay una tarea anterior, ajustar los tiempos automáticamente
+    // Ajustar las horas automáticamente si hay una tarea anterior
     if (previousEndTime !== null) {
       startInput.value = formatTime(previousEndTime); // Ajustar inicio
       endInput.value = formatTime(previousEndTime + diffMinutes); // Ajustar fin
