@@ -1,10 +1,4 @@
 /* styles.css */
-*,
-*::before,
-*::after {
-    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan en el tamaño total de los elementos */
-}
-
 body {
     font-family: Arial, sans-serif;
     background-image: url('https://hdqwalls.com/wallpapers/mountains-clouds-lake-reflection-sun-sky-6o.jpg'); /* Cambia esta URL por la imagen que prefieras */
@@ -18,7 +12,6 @@ body {
     align-items: center;
     height: 100vh;
     position: relative;
-    overflow-x: hidden; /* Evita el desplazamiento horizontal */
 }
 
 body::before {
@@ -39,8 +32,7 @@ body::before {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 500px;
     max-width: 100%; /* Hace que el contenedor sea flexible */
-    box-sizing: border-box;
-    overflow: hidden; /* Evita que los elementos sobresalgan */
+    box-sizing: border-box; /* Asegura que el padding se incluya en el tamaño */
 }
 
 h1 {
@@ -48,7 +40,6 @@ h1 {
     margin-top: -10px;
     margin-bottom: 20px;
     font-size: 28px; /* Título ajustado */
-    word-wrap: break-word; /* Asegura que el texto largo se ajuste */
 }
 
 /* Flexbox para que las tareas se ajusten a una columna */
@@ -126,23 +117,22 @@ h1 {
     }
 
     .task {
-        flex-direction: column; /* Cambia a columna para apilar los elementos */
-        align-items: flex-start; /* Alinea los elementos a la izquierda */
+        flex-direction: row; /* Mantener la fila en dispositivos pequeños */
+        align-items: center; /* Alinea los elementos en la fila */
+        justify-content: flex-start; /* Alinea los elementos hacia la izquierda */
     }
 
     .task-box {
-        width: 100%; /* Hace que el cuadro de tarea ocupe todo el ancho */
+        width: 50%; /* Hacer el cuadro de texto más estrecho en pantallas pequeñas */
     }
 
     .time-start,
     .time-end {
-        width: 70%; /* Hace que los campos de tiempo sean más grandes */
-        margin-bottom: 5px; /* Espacio entre los campos de tiempo */
+        width: 25%; /* Reduce el tamaño de las horas para dejar espacio */
     }
 
     .time-diff {
-        width: 100%; /* Hace que la diferencia de tiempo ocupe todo el ancho */
-        text-align: left; /* Alinea la diferencia de tiempo a la izquierda */
+        width: 20%; /* Hace que la diferencia de tiempo ocupe menos espacio */
     }
 
     #add-task {
@@ -158,10 +148,18 @@ h1 {
 
     .time-start,
     .time-end {
-        width: 60%; /* Los campos de tiempo se hacen más pequeños */
+        width: 40%; /* Hace que los campos de tiempo sean más grandes en pantallas muy pequeñas */
     }
 
     .task {
-        gap: 5px; /* Reduce el espacio entre los elementos */
+        gap: 10px; /* Mantiene el espacio entre elementos */
+    }
+
+    .time-diff {
+        width: 30%; /* Deja un poco más de espacio a la diferencia de tiempo */
+    }
+
+    .task-box {
+        width: 60%; /* Hacer el cuadro de texto aún más pequeño en pantallas muy pequeñas */
     }
 }
