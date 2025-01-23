@@ -34,7 +34,7 @@ function updateTimes() {
 
     // Calcular y mostrar la diferencia en minutos
     const diffMinutes = endTime - startTime;
-    diffSpan.textContent = `${diffMinutes} min`;
+    diffSpan.textContent = `${diffMinutes}`;
 
     // Ajustar las horas automáticamente si hay una tarea anterior
     if (previousEndTime !== null) {
@@ -92,7 +92,7 @@ document.getElementById("add-task").addEventListener("click", () => {
     <div class="task-box" contenteditable="true">Nueva Tarea</div>
     <input type="time" class="time-start" value="00:00">
     <input type="time" class="time-end" value="00:30">
-    <span class="time-diff" contenteditable="true">30 min</span> <!-- Campo editable para la diferencia -->
+    <span class="time-diff" contenteditable="true">30</span> <!-- Campo editable para la diferencia -->
   `;
 
   // Insertar la nueva tarea antes del botón de agregar
